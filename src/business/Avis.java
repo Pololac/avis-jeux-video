@@ -10,7 +10,7 @@ public class Avis {
     private static Long compteur = 0L;
 
     public Avis() {
-        this.id = compteur++;
+        this.id = ++compteur;
     }
 
     public Avis(String contenu, float note) {

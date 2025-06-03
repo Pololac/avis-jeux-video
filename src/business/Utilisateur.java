@@ -1,17 +1,19 @@
 package business;
 
+import java.util.Objects;
+
 public abstract class Utilisateur {
-    private Long id;
-    private String pseudo;
-    private String email;
-    private String motdeDePasse;
+    protected Long id;
+    protected String pseudo;
+    protected String email;
+    protected String motDePasse;
     private static Long compteur = 0L;
 
-    public Utilisateur(String pseudo, String email, String motdeDePasse) {
-        this.id = compteur++;
+    protected Utilisateur(String pseudo, String email, String motDePasse) {
+        this.id = ++compteur;
         this.pseudo = pseudo;
         this.email = email;
-        this.motdeDePasse = motdeDePasse;
+        this.motDePasse = motDePasse;
     }
 
     public Long getId() {
@@ -38,12 +40,28 @@ public abstract class Utilisateur {
         this.email = email;
     }
 
-    public String getMotdeDePasse() {
-        return motdeDePasse;
+    public String getMotDePasse() {
+        return motDePasse;
     }
 
-    public void setMotdeDePasse(String motdeDePasse) {
-        this.motdeDePasse = motdeDePasse;
+    public void setMotDePasse(String motDePasse) {
+        this.motDePasse = motDePasse;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Utilisateur utilisateur = (Utilisateur) o;
+        return Objects.equals(id, utilisateur.id) &&
+               Objects.equals(pseudo, utilisateur.pseudo) &&
+               Objects.equals(email, utilisateur.email) &&
+               Objects.equals(motDePasse, utilisateur.motDePasse);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, pseudo, email, motDePasse);
     }
 
     @Override
@@ -52,7 +70,7 @@ public abstract class Utilisateur {
                 "id=" + id +
                 ", pseudo='" + pseudo + '\'' +
                 ", email='" + email + '\'' +
-                ", motdeDePasse='" + motdeDePasse + '\'' +
+                ", motdeDePasse='" + motDePasse + '\'' +
                 '}';
     }
 }
